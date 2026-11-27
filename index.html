@@ -5,6 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Focus révisions</title>
 <meta name="theme-color" content="#14171a">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <style>
@@ -76,8 +79,57 @@ button:disabled{opacity:.4;cursor:default}
 .it.cur{background:var(--learn-bg);font-weight:700}
 .it.cur[data-k="p"]{background:var(--pray-bg)}.it.cur[data-k="r"]{background:var(--rest-bg)}.it.cur[data-k="e"]{background:var(--end-bg)}
 .man .it{cursor:pointer}
-#trk{position:fixed;inset:0;background:rgba(0,0,0,.5);display:flex;align-items:center;justify-content:center;padding:calc(10px + env(safe-area-inset-top,0px)) 10px 10px;z-index:5}
-#trk[hidden]{display:none}
+#trk,#crs{position:fixed;inset:0;background:rgba(0,0,0,.5);display:flex;align-items:center;justify-content:center;padding:calc(10px + env(safe-area-inset-top,0px)) 10px 10px;z-index:5}
+#trk[hidden],#crs[hidden]{display:none}
+.stt{display:flex;flex-direction:column;gap:6px;margin-top:12px}.stt .st span{color:var(--mute);font-size:13px}
+.bars{display:flex;gap:6px;align-items:flex-end;height:70px}.bc{flex:1;height:100%;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:3px;font-size:11px;color:var(--mute)}
+.bc i{display:block;width:100%;min-height:2px;background:var(--mute);opacity:.5;border-radius:4px 4px 0 0}.bc i.ok{background:var(--learn);opacity:1}
+.cr{display:flex;gap:8px;align-items:center;padding:6px 0;border-bottom:1px solid var(--line);font-size:14px}.cr span{flex:1;min-width:0}.cr button{min-height:32px;padding:2px 10px}
+#cn{flex:1;min-width:0;background:var(--surf);color:var(--ink);border:1px solid var(--line);border-radius:10px;padding:8px;font:inherit}
+#tg{min-width:0;flex:1;max-width:55%;background:var(--surf);color:var(--ink);border:1px solid var(--line);border-radius:10px;padding:5px 8px;font:inherit;font-size:13px}
+.nv{display:flex;align-items:center;justify-content:space-between;text-align:center;margin:4px 0 14px}.nv button{font-size:22px;width:44px;padding:0}
+.big{font-size:44px;font-weight:700;line-height:1;font-variant-numeric:tabular-nums}.big small{font-size:.5em;font-weight:600;color:var(--mute);margin:0 .25em 0 .05em}
+.dl{color:var(--mute);margin-top:6px;font-size:14px;text-transform:capitalize}
+.plot{position:relative;height:150px;margin:8px 0 4px 34px}
+.gl{position:absolute;left:0;right:0;border-top:1px solid var(--line)}.gl span{position:absolute;left:-34px;top:-8px;font-size:11px;color:var(--mute)}
+.goal{position:absolute;left:0;right:0;border-top:1px dashed var(--learn);opacity:.8}
+.cols{position:absolute;inset:0;display:flex;gap:8px;padding:0 6px}
+.col{flex:1;height:100%;min-height:0;padding:0;border:0;background:none;display:flex;align-items:flex-end;justify-content:center}
+.col i{width:100%;display:block;min-height:3px;background:var(--mute);opacity:.4;border-radius:5px 5px 0 0}.col.on i{background:var(--ink);opacity:1}
+.lbs{display:flex;gap:8px;padding:0 6px;margin-left:34px;font-size:12px;color:var(--mute);text-align:center}.lbs span{flex:1}.lbs .on{color:var(--ink);font-weight:700}
+.card{background:var(--bg);border-radius:14px;padding:12px 14px;display:flex;flex-direction:column;gap:6px;font-size:14px;margin-bottom:12px}
+.rw{display:flex;justify-content:space-between;gap:8px;margin-top:6px}.pb{height:6px;border-radius:4px;background:var(--line);overflow:hidden}.pb i{display:block;height:100%;border-radius:4px}
+.gs span{color:var(--mute);font-size:13px}
+#main[data-k="r"] .fc{color:#9fd0ee}
+html{color-scheme:light dark}
+body{touch-action:manipulation;-webkit-tap-highlight-color:transparent;overscroll-behavior:none;-webkit-user-select:none;user-select:none}
+input,select{-webkit-user-select:text;user-select:text}
+button{min-height:44px}
+.btns{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.btns button{flex:1 1 30%;min-width:0;min-height:48px;padding:6px 8px;order:2;display:inline-flex;align-items:center;justify-content:center;text-align:center}
+#bq,#bpm,#bt,#bc,#bmore{order:1}
+.btns .mo,.btns .sec{display:none}
+body.manual .btns .mo,.btns.open .sec{display:inline-flex}
+.btns .mo{order:0}
+#bi[hidden]{display:none!important}
+.top{flex-wrap:wrap}
+#tg{order:3;flex:1 1 100%;max-width:none;min-height:40px;font-size:15px}
+#cn{font-size:16px;min-height:44px}
+.st button,.cr button{min-height:40px;min-width:40px}
+.th{position:sticky;top:0;background:var(--surf);z-index:2;padding:4px 0 8px}
+#bo{min-height:44px}
+@media (orientation:portrait){
+ body{overflow-y:auto}
+ #app{height:auto;min-height:100%;grid-template-rows:auto auto}
+ #main{min-height:calc(100dvh - 24px - env(safe-area-inset-top,0px) - env(safe-area-inset-bottom,0px))}
+ .center{flex:1}
+ .btns{margin-top:auto;padding-top:10px}
+ #side{max-height:none}
+ #time{font-size:min(16vw,70px)}
+}
+@media (orientation:landscape){.btns button{flex:1 1 18%}#tg{order:0;flex:1 1 auto;max-width:55%}}
+@media (max-width:700px),(max-height:500px){#trk,#crs{padding:0}.tbox{border-radius:0;max-width:none;height:100%}}
+.gh{margin-top:14px;font-weight:700;font-size:13px;color:var(--learn);text-transform:uppercase;letter-spacing:.04em}
 .tbox{background:var(--surf);border:1px solid var(--line);border-radius:18px;padding:14px;max-width:900px;width:100%;max-height:100%;overflow:auto}
 .th{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;gap:8px}
 .tg{display:grid;grid-template-columns:repeat(7,minmax(74px,1fr));gap:8px;overflow-x:auto}
@@ -121,7 +173,7 @@ button:disabled{opacity:.4;cursor:default}
 <div id="app">
  <section id="main" data-k="l">
   <button id="bo">Tout afficher</button>
-  <div class="top"><span class="tag" id="tag">Apprentissage</span><span class="clock" id="clock"></span></div>
+  <div class="top"><span class="tag" id="tag">Apprentissage</span><select id="tg" aria-label="Cours en cours"></select><span class="clock" id="clock"></span></div>
   <div class="center">
    <div class="ringwrap">
     <svg viewBox="0 0 200 200" aria-hidden="true"><circle class="bg" cx="100" cy="100" r="90"/><circle class="fg" id="fg" cx="100" cy="100" r="90"/></svg>
@@ -136,20 +188,24 @@ button:disabled{opacity:.4;cursor:default}
   </div>
   <div class="day"><i id="dayb"></i></div>
   <div class="next"><span id="next"></span><span id="learned"></span></div>
-  <div class="btns" style="margin-top:10px">
-   <button id="bm" class="on">Horloge</button>
-   <button id="bp" disabled>Démarrer</button>
-   <button id="bs" disabled>Bloc suivant</button>
+  <div class="btns">
+   <button id="bm" class="on sec">Horloge</button>
+   <button id="bp" class="mo" disabled>Démarrer</button>
+   <button id="bs" class="mo" disabled>Bloc suivant</button>
    <button id="bq">Interruption</button>
-   <button id="bf">Plein écran</button>
+   <button id="bpm">Pomodoro</button>
+   <button id="bf" class="sec">Plein écran</button>
    <button id="bt">Suivi</button>
-   <button id="bz">Timer seul</button>
-   <button id="bi" hidden>Installer l’app</button>
+   <button id="bc">Cours</button>
+   <button id="bmore">Plus</button>
+   <button id="bz" class="sec">Timer seul</button>
+   <button id="bi" class="sec" hidden>Installer l’app</button>
   </div>
  </section>
  <aside id="side" aria-label="Programme de la journée"></aside>
 </div>
 <div id="trk" hidden></div>
+<div id="crs" hidden></div>
 <script>
 var B=[[420,480,'p','Réveil, Fajr, petit-déj'],[480,630,'l','Apprentissage'],[630,645,'r','Pause'],[645,745,'l','Apprentissage'],[745,810,'p','Dhuhr, déjeuner léger, marche'],[810,880,'l','Apprentissage'],[880,900,'p','Asr et pause'],[900,1020,'l','Apprentissage'],[1020,1035,'p','Maghrib'],[1035,1110,'r','Dîner, sport ou pause complète'],[1110,1125,'p','Isha'],[1125,1260,'l','Apprentissage'],[1260,1380,'e','Fin de journée, détente']];
 var KN={l:'Apprentissage',p:'Prière',r:'Repos',e:'Fin'};
@@ -188,7 +244,7 @@ function tick(){
  }
  if(i!==shown||state!==shown){shown=i;var ci=i>=0?i:(state==='before'?-1:B.length);buildList(ci);
   if(mode==='clock'&&i!==M.prev&&M.prev!==undefined&&i>=0)beep();M.prev=i}
- var main=$('main');CI=i;pzTick(i);track(i);
+ var main=$('main');CI=i;pzTick(i);pmTick(i);track(i);
  if(i<0){
   main.dataset.k='e';$('tag').textContent=state==='before'?'Avant la journée':'Journée terminée';
   $('title').textContent=state==='before'?'Prochain bloc : '+B[0][3]:'Bien joué, repose-toi.';
@@ -201,17 +257,18 @@ function tick(){
  var b=B[i];main.dataset.k=b[2];
  $('tag').textContent=b[2]==='l'?'Apprentissage '+lnum(i)+'/5':KN[b[2]];
  $('title').textContent=b[3];
- setTime(fmt(dur-el));
+ if(!(PM.on&&B[i][2]==='l'))setTime(fmt(dur-el));
  var p=el/dur;fg.style.strokeDashoffset=C*(1-p);$('pct').textContent=Math.floor(p*100)+' %';
  $('sub').textContent='Écoulé '+fmt(el).replace(/^00:/,'')+' sur '+Math.round(dur/60)+' min';
  var nx=B[i+1];$('next').innerHTML=nx?'Ensuite : <b>'+(nx[2]==='l'?'Apprentissage':nx[3])+'</b> ('+Math.round((nx[1]-nx[0]))+' min)':'Dernier bloc';
  var done=0;for(var j=0;j<i;j++)if(B[j][2]==='l')done+=B[j][1]-B[j][0];if(b[2]==='l')done+=el/60;
- $('learned').textContent='Appris : '+Math.floor(done/60)+'h'+String(Math.floor(done%60)).padStart(2,'0')+' / '+Math.floor(totalL/60)+'h'+String(totalL%60).padStart(2,'0')+(lostSecs(dk())>=60?' · perdu '+hm2(lostSecs(dk())/60):'');
+ $('learned').textContent='Appris : '+Math.floor(done/60)+'h'+String(Math.floor(done%60)).padStart(2,'0')+' / '+hm2(GL())+(lostSecs(dk())>=60?' · perdu '+hm2(lostSecs(dk())/60):'');
  var ds=B[0][0]*60,de=B[B.length-1][1]*60,pos=mode==='clock'?now:(B[i][0]*60+el);
  $('dayb').style.width=Math.min(100,Math.max(0,(pos-ds)/(de-ds)*100))+'%';
+ pmShow(i,el,dur);
 }
 $('bm').onclick=function(){
- mode=mode==='clock'?'manual':'clock';
+ mode=mode==='clock'?'manual':'clock';document.body.classList.toggle('manual',mode==='manual');
  this.textContent=mode==='clock'?'Horloge':'Manuel';
  $('bp').disabled=$('bs').disabled=mode==='clock';
  if(mode==='manual'){var d=new Date(),now=d.getHours()*60+d.getMinutes();M.i=0;for(var k=0;k<B.length;k++)if(now>=B[k][0]&&now<B[k][1])M.i=k;M.el=0;M.run=false;$('bp').textContent='Démarrer'}
@@ -235,7 +292,7 @@ document.addEventListener('visibilitychange',function(){if(!document.hidden){M.l
   return c.toDataURL('image/png')}
  var i192=ic(192),i512=ic(512);
  var m={name:'Focus révisions',short_name:'Focus',start_url:location.href.split('#')[0],scope:location.origin+'/',display:'standalone',background_color:'#14171a',theme_color:'#14171a',icons:[{src:i192,sizes:'192x192',type:'image/png',purpose:'any'},{src:i512,sizes:'512x512',type:'image/png',purpose:'any'}]};
- var l=document.createElement('link');l.rel='manifest';l.href='data:application/manifest+json,'+encodeURIComponent(JSON.stringify(m));document.head.appendChild(l);
+ if(!document.querySelector('link[rel=manifest]')){var l=document.createElement('link');l.rel='manifest';l.href='data:application/manifest+json,'+encodeURIComponent(JSON.stringify(m));document.head.appendChild(l)}
  var a=document.createElement('link');a.rel='apple-touch-icon';a.href=i192;document.head.appendChild(a);
 }catch(e){}})();
 var DP=null;
@@ -271,31 +328,12 @@ if(!TK.start){TK.start=dk();sav()}
 function dy(k){return TK.days[k]||(TK.days[k]={s:[0,0,0,0,0],c:0})}
 function track(i){
  var n=Date.now(),dt=Math.min((n-lt)/1000,60);lt=n;
- if(i<0||B[i][2]!=='l'||PZ||(mode==='manual'&&!M.run))return;
- dy(dk()).s[lnum(i)-1]+=dt;
+ if(i<0||B[i][2]!=='l'||PZ||(PM.on&&PM.ph==='b')||(mode==='manual'&&!M.run))return;
+ var x=dy(dk()),g=TK.tag||'';x.s[lnum(i)-1]+=dt;x.t=x.t||{};x.t[g]=(x.t[g]||0)+dt;
  if(++sv%10===0)sav();
 }
 function hm2(m){m=Math.round(m);return Math.floor(m/60)+'h'+String(m%60).padStart(2,'0')}
 var LB=B.filter(function(b){return b[2]==='l'}).map(function(b){return b[1]-b[0]});
-function renderOld(){
- var o=$('trk'),s=new Date(TK.start+'T12:00:00'),today=dk(),tm=0,nb=0,nc=0,act=0;
- var h='<div class="tbox"><div class="th"><b>Suivi sur 7 jours</b><button id="tx">Fermer</button></div><div class="tg">';
- for(var d=0;d<7;d++){
-  var dt=new Date(s.getTime()+d*864e5),k=dk(dt),v=TK.days[k]||{s:[0,0,0,0,0],c:0},m=v.s.reduce(function(a,b){return a+b},0)/60,cells='';
-  for(var b=0;b<5;b++){var p=Math.min(100,v.s[b]/60/LB[b]*100);if(p>=90)nb++;cells+='<i style="--p:'+p+'%"></i>'}
-  tm+=m;nc+=v.c;if(m>=1)act++;
-  h+='<div class="td'+(k===today?' now':'')+'"><b>J'+(d+1)+'</b><span>'+dt.toLocaleDateString('fr-FR',{weekday:'short',day:'numeric'})+'</span><div class="cl">'+cells+'</div><b>'+hm2(m)+'</b><div class="st"><button data-d="'+k+'" data-v="-1" aria-label="Moins un cours">−</button><b>'+v.c+'</b><button data-d="'+k+'" data-v="1" aria-label="Plus un cours">+</button></div><span>cours revus</span></div>';
- }
- h+='</div><p class="sum"><b>'+hm2(tm)+'</b> appris au total, <b>'+nb+'/35</b> blocs terminés, <b>'+nc+'</b> cours revus, <b>'+act+'</b> jour'+(act>1?'s':'')+' actif'+(act>1?'s':'')+'.<br>Les 5 barres de chaque jour sont tes 5 blocs d’apprentissage. Elles se remplissent toutes seules quand le timer tourne sur un bloc d’apprentissage.</p><div class="tf"><button id="tr">'+(rst?'Confirmer : tout effacer':'Recommencer au jour 1')+'</button></div></div>';
- o.innerHTML=h;
-}
-$('bt').onclick=function(){rst=false;renderT();$('trk').hidden=false};
-$('trk').onclick=function(e){
- var t=e.target;
- if(t.id==='tx'||t===this){sav();this.hidden=true;return}
- if(t.dataset&&t.dataset.d){var x=dy(t.dataset.d);x.c=Math.max(0,x.c+Number(t.dataset.v));sav();renderT();return}
- if(t.id==='tr'){if(!rst){rst=true}else{TK={start:dk(),days:{}};sav();rst=false}renderT()}
-};
 var PZ=TK.pz||null,CI=-1;
 function hhmm(ms){return new Date(ms).toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'})}
 function lostSecs(k){var v=TK.days[k];if(!v||!v.p)return 0;return v.p.reduce(function(a,q){return a+(q[1]-q[0])/1000},0)}
@@ -329,48 +367,138 @@ function pzTick(i){
  $('main').classList.toggle('pz',on);
  $('lost').hidden=!on;
  if(on)$('lt').textContent='Interrompu depuis '+hhmm(PZ.start)+' · perdu '+fmt((Date.now()-PZ.start)/1000);
- $('bq').textContent=on?'Reprendre':'Interruption';
+ $('bq').textContent=on?'Reprendre':'Interruption';$('bq').classList.toggle('on',on);
  $('bq').disabled=!(on||(i>=0&&B[i][2]==='l'&&(mode==='clock'||M.run)));
  $('bm').disabled=on;
  var dd=mode==='clock'||on;$('bp').disabled=dd;$('bs').disabled=dd;
 }
 $('bq').onclick=function(){if(PZ)pzEnd();else if(CI>=0&&B[CI][2]==='l')pzStart(CI);tick()};
 $('br').onclick=function(){pzEnd();tick()};
+function GL(){return TK.goal||480}
+var CL=['Transmission mend\u00e9lienne','Transmission non mend\u00e9lienne','Conseil g\u00e9n\u00e9tique et calcul de risque','Trisomie 21','Aneuplo\u00efdie des chromosomes sexuels','Microremaniements r\u00e9currents','Syndrome de l\u2019X fragile','DPN et DPI','DNN','Aspects l\u00e9gislatifs et enjeux \u00e9thiques','Mucoviscidose','Maladies rares','Panorama des affections g\u00e9n\u00e9tiques','Perspectives th\u00e9rapeutiques','Oncog\u00e9n\u00e9tique','Diagnostic pr\u00e9symptomatique ND','M\u00e9decine g\u00e9nomique','ED clinique conclusion'],
+FD=['Cytog\u00e9n\u00e9tique conventionnelle','Cytog\u00e9n\u00e9tique mol\u00e9culaire','Anomalie g\u00e9n\u00e9tique \u00e0 l\u2019\u00e9chelle du g\u00e8ne','NGS, interpr\u00e9tation de variants','\u00c9pig\u00e9n\u00e9tique','Mosa\u00efcismes','H\u00e9mopathies malignes','ED Wooclap'],GR=['Clinique','Fondamentale','Autres'];
+function cos(){
+ if(!TK.co)TK.co=[];
+ var c=TK.co;
+ if(TK.cv!==2){
+  var ren={'Cyto conventionnelle':'Cytog\u00e9n\u00e9tique conventionnelle','Cyto mol\u00e9culaire':'Cytog\u00e9n\u00e9tique mol\u00e9culaire'},k,n;
+  c.forEach(function(x){if(ren[x[0]])x[0]=ren[x[0]]});
+  for(k in TK.days)if(TK.days[k].t)for(n in ren)if(TK.days[k].t[n]){TK.days[k].t[ren[n]]=(TK.days[k].t[ren[n]]||0)+TK.days[k].t[n];delete TK.days[k].t[n]}
+  if(TK.tag&&ren[TK.tag])TK.tag=ren[TK.tag];
+  [[CL,'Clinique'],[FD,'Fondamentale']].forEach(function(p){p[0].forEach(function(nm){var f=c.filter(function(x){return x[0]===nm})[0];if(f)f[2]=p[1];else c.push([nm,0,p[1]])})});
+  TK.cv=2;sav();
+ }
+ return c;
+}
+function esc(t){return t.replace(/[&<>"]/g,function(c){return '&#'+c.charCodeAt(0)+';'})}
+function byGroup(c,g){var r=[];c.forEach(function(x,j){if((x[2]||'Autres')===g)r.push([x,j])});return r}
+function renderC(){
+ var o=$('crs'),ob=o.querySelector('.tbox'),sc=ob?ob.scrollTop:0,c=cos(),done=0,nx=-1;
+ c.forEach(function(x,j){done+=x[1];if(nx<0||x[1]<c[nx][1])nx=j});
+ var h='<div class="tbox"><div class="th"><b>Planning par cours</b><button id="cx">Fermer</button></div><p class="sum"><b>'+done+'/'+c.length*3+'</b> passes faites (3 par cours). \u00c0 r\u00e9viser ensuite : <b>'+(nx>=0?esc(c[nx][0]):'\u2014')+'</b>. Touche les ronds pour ajouter une passe.</p>';
+ GR.forEach(function(g){
+  var it=byGroup(c,g);if(!it.length)return;
+  h+='<div class="gh">'+g+' ('+it.length+')</div>';
+  it.forEach(function(p){var x=p[0],j=p[1];h+='<div class="cr"><span>'+esc(x[0])+'</span><button data-j="'+j+'" aria-label="Passe suivante">'+'\u25cf'.repeat(x[1])+'\u25cb'.repeat(3-x[1])+'</button><button data-r="'+j+'" aria-label="Supprimer">\u00d7</button></div>'});
+ });
+ o.innerHTML=h+'<div class="tf"><input id="cn" placeholder="Ajouter un cours" maxlength="60"><button id="ca">Ajouter</button></div></div>';
+ var n=o.querySelector('.tbox');if(n)n.scrollTop=sc;
+}
+$('bc').onclick=function(){renderC();$('crs').hidden=false};
+$('crs').onclick=function(e){var t=e.target;
+ if(t.id==='cx'||t===this){sav();this.hidden=true;fillTg();return}
+ if(t.dataset&&t.dataset.j!==undefined){var x=cos()[t.dataset.j];x[1]=(x[1]+1)%4;sav();renderC();return}
+ if(t.dataset&&t.dataset.r!==undefined){cos().splice(Number(t.dataset.r),1);sav();renderC();return}
+ if(t.id==='ca'){var v=$('cn').value.trim();if(v){cos().push([v,0,'Autres']);sav();renderC()}}
+};
 var VM=null,SEL=null,MN=['janvier','février','mars','avril','mai','juin','juillet','août','septembre','octobre','novembre','décembre'];
 function dmin(k){var v=TK.days[k];return v?v.s.reduce(function(a,b){return a+b},0)/60:0}
-function renderT(){
- var o=$('trk'),ob=o.querySelector('.tbox'),sc=ob?ob.scrollTop:0,td=new Date(),today=dk(td),lo=2026*12+8,hi=2027*12+5;
- if(VM===null)VM=td.getFullYear()*12+td.getMonth();
- VM=Math.max(lo,Math.min(hi,VM));if(!SEL)SEL=today;
- var y=Math.floor(VM/12),m=VM%12,off=(new Date(y,m,1).getDay()+6)%7,nd=new Date(y,m+1,0).getDate(),i,b;
- var h='<div class="tbox"><div class="th"><span class="nav"><button id="pm"'+(VM<=lo?' disabled':'')+' aria-label="Mois précédent">‹</button><b>'+MN[m]+' '+y+'</b><button id="nm"'+(VM>=hi?' disabled':'')+' aria-label="Mois suivant">›</button></span><button id="tx">Fermer</button></div><div class="tw"><div class="cal">';
- 'LMMJVSD'.split('').forEach(function(c){h+='<span class="dh">'+c+'</span>'});
- for(i=0;i<off;i++)h+='<span></span>';
- for(var d=1;d<=nd;d++){var k=dk(new Date(y,m,d));h+='<button class="dc'+(k===today?' now':'')+(k===SEL?' sel':'')+'" data-k="'+k+'" style="--p:'+Math.min(100,dmin(k)/totalL*100)+'%">'+d+'</button>'}
- var sv2=TK.days[SEL]||{s:[0,0,0,0,0],c:0},sd=new Date(SEL+'T12:00:00'),bars='';
- for(b=0;b<5;b++)bars+='<i style="--p:'+Math.min(100,sv2.s[b]/60/LB[b]*100)+'%"></i>';
- h+='</div><div class="dp"><b>'+sd.toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long'})+'</b><span>Appris : <b>'+hm2(dmin(SEL))+'</b> sur '+hm2(totalL)+'</span>'+lostHtml(SEL)+'<div class="cl">'+bars+'</div><div class="st"><button data-v="-1" aria-label="Moins un cours">−</button><b>'+sv2.c+'</b><button data-v="1" aria-label="Plus un cours">+</button><span>cours revus</span></div></div></div>';
- var tm=0,act=0,nb=0,nc=0,key,vv,mm,st=0,c=new Date();
- for(key in TK.days){vv=TK.days[key];mm=dmin(key);tm+=mm;nc+=vv.c;if(mm>=60)act++;for(b=0;b<5;b++)if(vv.s[b]/60>=LB[b]*.9)nb++}
- if(dmin(dk(c))<60)c.setDate(c.getDate()-1);
- while(dmin(dk(c))>=60&&st<400){st++;c.setDate(c.getDate()-1)}
- var left=Math.max(0,Math.ceil((new Date(2027,5,30,23,59)-td)/864e5));
- h+='<p class="sum"><b>'+hm2(tm)+'</b> appris depuis septembre, <b>'+act+'</b> jours à 1 h ou plus, série en cours : <b>'+st+'</b> jour'+(st>1?'s':'')+', <b>'+nb+'</b> blocs terminés, <b>'+nc+'</b> cours revus, <b>'+hm2(lostAll())+'</b> perdus en interruptions.<br><b>'+left+'</b> jours avant le 30 juin. Dans le jour sélectionné, les 5 barres sont tes blocs d’apprentissage ; le petit trait sous chaque date montre le temps appris ce jour-là.</p><div class="tf"><button id="tr">'+(rst?'Confirmer : tout effacer':'Tout effacer')+'</button></div></div>';
- o.innerHTML=h;
- var nb2=o.querySelector('.tbox');if(nb2)nb2.scrollTop=sc;
+function big(m){m=Math.round(m);return '<span>'+Math.floor(m/60)+'</span><small>h</small> <span>'+String(m%60).padStart(2,'0')+'</span><small>m</small>'}
+var PAL=['linear-gradient(90deg,#f5d90a,#fff3b0)','linear-gradient(90deg,#2f7de1,#9cc8ff)','linear-gradient(90deg,#34c759,#b6f2c6)','linear-gradient(90deg,#ff5a8a,#ffc2d4)','linear-gradient(90deg,#ff9f1a,#ffd9a0)','linear-gradient(90deg,#9b6bff,#d3c2ff)'];
+function dist(k){
+ var v=TK.days[k],tot=dmin(k),sum=0,a=[],n;
+ if(v&&v.t)for(n in v.t)if(n&&v.t[n]>=12){a.push([n,v.t[n]/60]);sum+=v.t[n]/60}
+ a.sort(function(x,y){return y[1]-x[1]});
+ if(tot-sum>=0.2)a.push(['Sans tag',tot-sum,1]);
+ return a;
 }
-$('bt').onclick=function(){VM=null;SEL=null;rst=false;renderT();$('trk').hidden=false};
+function renderT(){
+ var o=$('trk'),ob=o.querySelector('.tbox'),sc=ob?ob.scrollTop:0,today=dk();
+ if(!SEL)SEL=today;
+ var sd=new Date(SEL+'T12:00:00'),mon=new Date(sd.getFullYear(),sd.getMonth(),sd.getDate()-(sd.getDay()+6)%7),mx=GL(),wt=0,ds=[],i,k,m;
+ for(i=0;i<7;i++){k=dk(new Date(mon.getFullYear(),mon.getMonth(),mon.getDate()+i));m=dmin(k);ds.push([k,m]);wt+=m;if(m>mx)mx=m}
+ var step=mx<=240?60:mx<=720?120:180,top=Math.ceil(mx/step)*step,tot=dmin(SEL);
+ var h='<div class="tbox"><div class="th"><span></span><button id="tx">Fermer</button></div><div class="nv"><button id="pd" aria-label="Jour pr\u00e9c\u00e9dent">\u2039</button><div><div class="big">'+big(tot)+'</div><div class="dl">'+(SEL===today?'Aujourd\u2019hui \u2013 ':'')+sd.toLocaleDateString('fr-FR',{weekday:'short',day:'numeric',month:'long'})+((TK.days[SEL]&&TK.days[SEL].pm)?' \u00b7 '+TK.days[SEL].pm+' pomodoro'+(TK.days[SEL].pm>1?'s':''):'')+'</div></div><button id="nd" aria-label="Jour suivant"'+(SEL>=today?' disabled':'')+'>\u203a</button></div><div class="tw"><div><div class="plot">';
+ for(var v=0;v<=top;v+=step)h+='<div class="gl" style="bottom:'+v/top*100+'%"><span>'+v/60+'h</span></div>';
+ h+='<div class="goal" style="bottom:'+GL()/top*100+'%"></div><div class="cols">';
+ ds.forEach(function(d){h+='<button class="col'+(d[0]===SEL?' on':'')+'" data-d="'+d[0]+'" aria-label="'+d[0]+'"><i style="height:'+d[1]/top*100+'%"></i></button>'});
+ h+='</div></div><div class="lbs">';
+ ds.forEach(function(d,j){h+='<span'+(d[0]===SEL?' class="on"':'')+'>'+'LMMJVSD'.charAt(j)+'</span>'});
+ h+='</div><p class="sum">Semaine : <b>'+hm2(wt)+'</b>, moyenne <b>'+hm2(wt/7)+'</b> par jour. Ligne en pointill\u00e9s = ton objectif.</p><div class="st gs"><span>Objectif par jour</span><button data-g="-30" aria-label="Moins 30 minutes">\u2212</button><b>'+hm2(GL())+'</b><button data-g="30" aria-label="Plus 30 minutes">+</button></div></div><div><div class="card"><b>R\u00e9partition par cours</b>';
+ var a=dist(SEL),ci=0;
+ if(!a.length)h+='<span class="sum">Aucune s\u00e9ance ce jour-l\u00e0. Choisis un cours en haut de l\u2019\u00e9cran principal pour le suivre.</span>';
+ a.forEach(function(x){h+='<div class="rw"><span>'+esc(x[0])+'</span><span>'+hm2(x[1])+'</span></div><div class="pb"><i style="width:'+Math.min(100,x[1]/tot*100)+'%;background:'+(x[2]?'linear-gradient(90deg,#777,#bbb)':PAL[ci++%PAL.length])+'"></i></div>'});
+ h+='</div>';
+ var pz=TK.days[SEL]&&TK.days[SEL].p&&TK.days[SEL].p.length;
+ if(pz)h+='<div class="card">'+lostHtml(SEL)+'</div>';
+ h+='<div class="tf"><button id="tr">'+(rst?'Confirmer : tout effacer':'Tout effacer')+'</button></div></div></div></div>';
+ o.innerHTML=h;
+ var n=o.querySelector('.tbox');if(n)n.scrollTop=sc;
+}
+$('bt').onclick=function(){SEL=null;rst=false;renderT();$('trk').hidden=false};
 $('trk').onclick=function(e){
- var t=e.target;
- if(t.id==='tx'||t===this){sav();this.hidden=true;return}
- if(t.id==='pm'){VM--;renderT();return}
- if(t.id==='nm'){VM++;renderT();return}
- if(t.dataset&&t.dataset.k){SEL=t.dataset.k;renderT();return}
- if(t.dataset&&t.dataset.v){var x=dy(SEL);x.c=Math.max(0,x.c+Number(t.dataset.v));sav();renderT();return}
- if(t.id==='tr'){if(!rst){rst=true}else{TK={start:dk(),days:{}};sav();rst=false}renderT()}
+ var t=e.target.closest('button');
+ if(e.target===this||(t&&t.id==='tx')){sav();this.hidden=true;return}
+ if(!t)return;
+ if(t.id==='pd'||t.id==='nd'){var d=new Date(SEL+'T12:00:00');d.setDate(d.getDate()+(t.id==='nd'?1:-1));if(dk(d)<=dk())SEL=dk(d);renderT();return}
+ if(t.dataset.d){if(t.dataset.d<=dk())SEL=t.dataset.d;renderT();return}
+ if(t.dataset.g){TK.goal=Math.max(60,Math.min(900,GL()+Number(t.dataset.g)));sav();renderT();return}
+ if(t.id==='tr'){if(!rst){rst=true}else{TK={start:dk(),days:{},co:TK.co,cv:TK.cv};sav();rst=false}renderT()}
 };
 setInterval(function(){if(!$('trk').hidden)renderT()},5000);
+function fillTg(){
+ var c=cos(),h='<option value="">Sans tag</option>';
+ if(TK.tag&&!c.some(function(x){return x[0]===TK.tag}))TK.tag='';
+ GR.forEach(function(g){var it=byGroup(c,g);if(!it.length)return;h+='<optgroup label="'+g+'">';it.forEach(function(p){h+='<option value="'+esc(p[0][0])+'"'+(TK.tag===p[0][0]?' selected':'')+'>'+esc(p[0][0])+'</option>'});h+='</optgroup>'});
+ $('tg').innerHTML=h;
+}
+$('tg').onchange=function(){TK.tag=this.value;sav()};
+var PMP=[[25,5],[50,10],[90,15]],PM={on:false,pre:0,ph:'f',el:0,n:0,lt:Date.now()};
+if(TK.pm){PM.on=!!TK.pm.on;PM.pre=TK.pm.pre||0}
+function pmLen(){var p=PMP[PM.pre];return (PM.ph==='f'?p[0]:(PM.n%4===0?p[1]*3:p[1]))*60}
+function pmBtn(){var b=$('bpm');b.textContent=PM.on?'Pomodoro '+PMP[PM.pre][0]+'/'+PMP[PM.pre][1]:'Pomodoro';b.className=PM.on?'on':''}
+$('bpm').onclick=function(){
+ var st=((PM.on?PM.pre+1:0)+1)%4;
+ PM.on=st>0;PM.pre=Math.max(0,st-1);PM.ph='f';PM.el=0;PM.n=0;PM.lt=Date.now();
+ TK.pm={on:PM.on,pre:PM.pre};sav();pmBtn();tick();
+};
+function pmTick(i){
+ var n=Date.now(),dt=Math.min((n-PM.lt)/1000,60);PM.lt=n;
+ if(!PM.on||i<0||B[i][2]!=='l'||PZ||(mode==='manual'&&!M.run))return;
+ PM.el+=dt;
+ if(PM.el>=pmLen()){
+  PM.el=0;
+  if(PM.ph==='f'){PM.n++;PM.ph='b';var x=dy(dk());x.pm=(x.pm||0)+1;sav()}else PM.ph='f';
+  beep();
+ }
+}
+function pmShow(i,el,dur){
+ if(!PM.on||i<0||B[i][2]!=='l')return;
+ var len=pmLen(),r=Math.min(1,PM.el/len),b=PM.ph==='b';
+ $('main').dataset.k=b?'r':'l';
+ $('tag').textContent=b?(PM.n%4===0?'Grande pause':'Pause'):'Pomodoro '+(PM.n+1);
+ setTime(fmt(len-PM.el));
+ fg.style.strokeDashoffset=C*(1-r);$('pct').textContent=Math.floor(r*100)+' %';
+ $('sub').textContent='Bloc : encore '+fmt(dur-el).replace(/^00:/,'');
+}
+pmBtn();
+fillTg();
 document.addEventListener('visibilitychange',function(){if(document.hidden)sav()});
+$('bmore').onclick=function(){var o=document.querySelector('.btns').classList.toggle('open');this.textContent=o?'Moins':'Plus'};
+function wake(){try{if(navigator.wakeLock)navigator.wakeLock.request('screen').then(function(l){wl=l;l.addEventListener('release',function(){wl=null})}).catch(function(){})}catch(e){}}
+document.addEventListener('click',function(e){if(e.target.closest&&e.target.closest('button')){try{if(navigator.vibrate)navigator.vibrate(8)}catch(x){}}if(!wl)wake()});
+document.addEventListener('visibilitychange',function(){if(!document.hidden)wake()});
+try{if('serviceWorker' in navigator&&location.protocol.indexOf('http')===0)navigator.serviceWorker.register('sw.js').catch(function(){})}catch(e){}
 tick();setInterval(tick,1000);
 </script>
 </body>
